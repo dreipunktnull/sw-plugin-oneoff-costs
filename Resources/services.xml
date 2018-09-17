@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="dpn_oneoff_costs.subscriber.extend_add_article" class="DpnOneoffCosts\Subscriber\ExtendAddArticleSubscriber">
+        <service id="dpn_oneoff_costs.subscriber.extend_add_article" class="DpnOneoffCosts\Subscriber\AddArticleSubscriber">
             <argument type="service" id="service_container"/>
             <tag name="shopware.event_subscriber"/>
         </service>
