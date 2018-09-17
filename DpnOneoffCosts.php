@@ -30,9 +30,9 @@ class DpnOneoffCosts extends Plugin
         $crudService = $this->container->get('shopware_attribute.crud_service');
 
         $crudService->update('s_articles_attributes', 'oneoff_costs_price', 'float', [
-            'label' => 'Oneoff costs price',
+            'label' => 'Price',
             'helpText' => 'Oneoff costs to be added to this article independent from amount',
-            'displayInBackend' => true,
+            'displayInBackend' => false,
             'position' => 10,
             'custom' => false,
             'translatable' => false,
@@ -40,9 +40,9 @@ class DpnOneoffCosts extends Plugin
         ]);
 
         $crudService->update('s_articles_attributes', 'oneoff_costs_label', 'string', [
-            'label' => 'Oneoff costs label',
+            'label' => 'Label',
             'helpText' => 'Oneoff costs label shown in basket',
-            'displayInBackend' => true,
+            'displayInBackend' => false,
             'position' => 11,
             'custom' => false,
             'translatable' => true,
