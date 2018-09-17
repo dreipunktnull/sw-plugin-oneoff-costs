@@ -1,11 +1,21 @@
 //{block name="backend/article/view/detail/base"}
 //{$smarty.block.parent}
-Ext.define('Shopware.apps.Article.view.detail.DpnOneoffCostsBase', {
-    override: 'Shopware.apps.Article.view.detail.Base',
+Ext.define('Shopware.apps.Article.view.detail.DpnOneoffCostsWindow', {
+    override: 'Shopware.apps.Article.view.detail.Window',
 
-    createRightElements: function() {
-        var me = this,
-            elements = me.callParent(arguments);
+    createBaseTab: function() {
+        var me = this;
+
+        me.callParent(arguments);
+
+        // Insert fieldset at index 2 which is below 'prices' panel by default
+        me.detailForm.items.items.splice(2, 0, me.createOneoffCostsFieldSet());
+
+        return me.detailContainer;
+    },
+
+    createOneoffCostsFieldSet: function () {
+        var me = this;
 
         me.attrFieldPrice = Ext.create('Ext.form.field.Number', {
             xtype: 'numberfield',
@@ -24,7 +34,7 @@ Ext.define('Shopware.apps.Article.view.detail.DpnOneoffCostsBase', {
             labelWidth: 155
         });
 
-        me.oneoffCostsFieldSet = Ext.create('Ext.form.FieldSet', {
+        return Ext.create('Ext.form.FieldSet', {
             title: '{s namespace="backend/detail" name="oneoff_costs_label"}One-off costs{/s}',
             layout: 'anchor',
             defaults: {
@@ -36,10 +46,6 @@ Ext.define('Shopware.apps.Article.view.detail.DpnOneoffCostsBase', {
                 me.attrFieldLabel
             ]
         });
-
-        elements.push(me.oneoffCostsFieldSet);
-
-        return elements;
     },
 
     onStoresLoaded: function() {
