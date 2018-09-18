@@ -5,7 +5,6 @@ Ext.define('Shopware.apps.Article.controller.DpnOneoffCostsDetail', {
 
     onSaveArticle: function(win, article, options) {
         var me = this,
-            mainWindow = me.getMainWindow(),
             originalCallback = options.callback;
 
         var customCallback = function(newArticle, success) {
@@ -17,8 +16,9 @@ Ext.define('Shopware.apps.Article.controller.DpnOneoffCostsDetail', {
                 params: {
                     _foreignKey: newArticle.get('mainDetailId'),
                     _table: 's_articles_attributes',
-                    __attribute_oneoff_costs_price: mainWindow.attrFieldPrice.getValue(),
-                    __attribute_oneoff_costs_label: mainWindow.attrFieldLabel.getValue()
+                    __attribute_oneoff_costs_price: me.getBaseFieldSet().attrFieldPrice.getValue(),
+                    __attribute_oneoff_costs_tax: me.getBaseFieldSet().attrFieldTax.getValue(),
+                    __attribute_oneoff_costs_label: me.getBaseFieldSet().attrFieldLabel.getValue()
                 }
             });
         };
