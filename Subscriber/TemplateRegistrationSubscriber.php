@@ -42,7 +42,7 @@ class TemplateRegistrationSubscriber implements SubscriberInterface
 
         if ($controller->Request()->getActionName() === 'load') {
             $controller->View()->extendsTemplate('backend/dpn_oneoff_costs/article/controller/detail.js');
-            $controller->View()->extendsTemplate('backend/dpn_oneoff_costs/article/view/detail/window.js');
+            $controller->View()->extendsTemplate('backend/dpn_oneoff_costs/article/view/detail/base.js');
         }
     }
 

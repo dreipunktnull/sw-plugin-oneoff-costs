@@ -53,8 +53,9 @@ class AddArticleSubscriber implements SubscriberInterface
             return;
         }
 
-        // Use tax rule from product
-        $tax = $context->getTaxRule($product['taxID']);
+        // Use tax rule from product unless defined
+        $taxId = $product['oneoff_costs_tax'] ?: $product['taxID'];
+        $tax = $context->getTaxRule($taxId);
 
         // Convert gross price if applicable for current customer group
         $customerGroup = $context->getCurrentCustomerGroup();
@@ -75,7 +76,7 @@ class AddArticleSubscriber implements SubscriberInterface
             'quantity' => 1,
             'price' => $oneoffCostsPriceGross,
             'netprice' => $oneoffCostsPriceNet,
-            'tax_rate' => $product['tax'],
+            'tax_rate' => $tax->getTax(),
             'datum' => date('Y-m-d H:i:s'),
             'modus' => 4,
             'currencyFactor' => $context->getCurrency()->getFactor(),
