@@ -70,9 +70,9 @@ class AddArticleSubscriber implements SubscriberInterface
 
         $params = [
             'sessionID' => $session->get('sessionId'),
-            'articlename' => $product['oneoff_costs_label'],
+            'articlename' => (string) $product['oneoff_costs_label'],
             'articleID' => 0,
-            'ordernumber' => '',
+            'ordernumber' => (string) $product['oneoff_costs_ordernum'],
             'quantity' => 1,
             'price' => $oneoffCostsPriceGross,
             'netprice' => $oneoffCostsPriceNet,

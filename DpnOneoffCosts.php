@@ -58,6 +58,15 @@ class DpnOneoffCosts extends Plugin
             'translatable' => true,
         ]);
 
+        $crudService->update('s_articles_attributes', 'oneoff_costs_ordernum', 'string', [
+            'label' => 'Order number',
+            'helpText' => 'One-off costs order number',
+            'displayInBackend' => false,
+            'position' => 13,
+            'custom' => false,
+            'translatable' => false,
+        ]);
+
         $this->updateMetadataCacheAndModels();
 
         return true;
@@ -76,6 +85,8 @@ class DpnOneoffCosts extends Plugin
         try {
             $crudService->delete('s_articles_attributes', 'oneoff_costs_price');
             $crudService->delete('s_articles_attributes', 'oneoff_costs_label');
+            $crudService->delete('s_articles_attributes', 'oneoff_costs_tax');
+            $crudService->delete('s_articles_attributes', 'oneoff_costs_ordernum');
             $this->updateMetadataCacheAndModels();
         }
         catch (\Exception $e) {

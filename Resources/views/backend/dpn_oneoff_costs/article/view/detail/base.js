@@ -47,6 +47,14 @@ Ext.define('Shopware.apps.Article.view.detail.DpnOneoffCostsBase', {
             helpText: '{s namespace="backend/attribute_columns" name="s_articles_attributes_oneoff_costs_label_helpText"}Label helptext{/s}'
         });
 
+        me.attrFieldOrdernum = Ext.create('Ext.form.field.Text', {
+            xtype: 'textfield',
+            name: 'oneoff_costs_ordernum',
+            translatable: false,
+            fieldLabel: '{s namespace="backend/attribute_columns" name="s_articles_attributes_oneoff_costs_ordernum_label"}Order number{/s}',
+            helpText: '{s namespace="backend/attribute_columns" name="s_articles_attributes_oneoff_costs_ordernum_helpText"}Order number helptext{/s}'
+        });
+
         return Ext.create('Ext.form.FieldSet', {
             title: '{s namespace="backend/detail" name="oneoff_costs_label"}One-off costs{/s}',
             layout: 'anchor',
@@ -57,7 +65,8 @@ Ext.define('Shopware.apps.Article.view.detail.DpnOneoffCostsBase', {
             items: [
                 me.attrFieldPrice,
                 me.attrFieldTax,
-                me.attrFieldLabel
+                me.attrFieldLabel,
+                me.attrFieldOrdernum
             ]
         });
     },
@@ -90,6 +99,7 @@ Ext.define('Shopware.apps.Article.view.detail.DpnOneoffCostsBase', {
                 me.attrFieldPrice.setValue(response.data['__attribute_oneoff_costs_price']);
                 me.attrFieldTax.setValue(taxValue);
                 me.attrFieldLabel.setValue(response.data['__attribute_oneoff_costs_label']);
+                me.attrFieldOrdernum.setValue(response.data['__attribute_oneoff_costs_ordernum']);
             }
         });
     }

@@ -18,7 +18,8 @@ Ext.define('Shopware.apps.Article.controller.DpnOneoffCostsDetail', {
                     _table: 's_articles_attributes',
                     __attribute_oneoff_costs_price: me.getBaseFieldSet().attrFieldPrice.getValue(),
                     __attribute_oneoff_costs_tax: me.getBaseFieldSet().attrFieldTax.getValue(),
-                    __attribute_oneoff_costs_label: me.getBaseFieldSet().attrFieldLabel.getValue()
+                    __attribute_oneoff_costs_label: me.getBaseFieldSet().attrFieldLabel.getValue(),
+                    __attribute_oneoff_costs_ordernum: me.getBaseFieldSet().attrFieldOrdernum.getValue()
                 }
             });
         };
