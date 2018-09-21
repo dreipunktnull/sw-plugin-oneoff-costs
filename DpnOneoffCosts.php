@@ -32,8 +32,8 @@ class DpnOneoffCosts extends Plugin
         $crudService->update('s_articles_attributes', 'oneoff_costs_price', 'float', [
             'label' => 'Price',
             'helpText' => 'One-off costs to be added to this article independent from amount',
-            'displayInBackend' => false,
-            'position' => 10,
+            'displayInBackend' => true,
+            'position' => 300,
             'custom' => false,
             'translatable' => false,
             'defaultValue' => 0,
@@ -42,9 +42,9 @@ class DpnOneoffCosts extends Plugin
         $crudService->update('s_articles_attributes', 'oneoff_costs_tax', 'int', [
             'label' => 'Tax',
             'helpText' => 'Tax to be applied to one-off costs',
-            'displayInBackend' => false,
+            'displayInBackend' => true,
             'allowBlank' => true,
-            'position' => 11,
+            'position' => 301,
             'custom' => false,
             'translatable' => false,
         ]);
@@ -52,8 +52,8 @@ class DpnOneoffCosts extends Plugin
         $crudService->update('s_articles_attributes', 'oneoff_costs_label', 'string', [
             'label' => 'Label',
             'helpText' => 'One-off costs label shown in basket',
-            'displayInBackend' => false,
-            'position' => 12,
+            'displayInBackend' => true,
+            'position' => 302,
             'custom' => false,
             'translatable' => true,
         ]);
@@ -61,8 +61,8 @@ class DpnOneoffCosts extends Plugin
         $crudService->update('s_articles_attributes', 'oneoff_costs_ordernum', 'string', [
             'label' => 'Order number',
             'helpText' => 'One-off costs order number',
-            'displayInBackend' => false,
-            'position' => 13,
+            'displayInBackend' => true,
+            'position' => 303,
             'custom' => false,
             'translatable' => false,
         ]);
