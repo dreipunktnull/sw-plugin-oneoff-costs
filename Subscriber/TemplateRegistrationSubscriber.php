@@ -2,6 +2,14 @@
 
 namespace DpnOneoffCosts\Subscriber;
 
+/**
+ * Copyright notice
+ *
+ * (c) Björn Fromme <fromme@dreipunktnull.com>, dreipunktnull
+ *
+ * All rights reserved
+ */
+
 use Enlight\Event\SubscriberInterface;
 
 class TemplateRegistrationSubscriber implements SubscriberInterface
