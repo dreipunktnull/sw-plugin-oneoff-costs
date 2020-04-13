@@ -40,7 +40,7 @@ class DpnOneoffCosts extends Plugin
                 'defaultValue' => 0,
             ]);
 
-            $crudService->update('s_articles_attributes', 'oneoff_costs_tax', TypeMapping::TYPE_INTEGER, [
+            $crudService->update('s_articles_attributes', 'oneoff_costs_tax', TypeMapping::TYPE_SINGLE_SELECTION, [
                 'label' => 'Tax',
                 'helpText' => 'Tax to be applied to one-off costs',
                 'displayInBackend' => true,
@@ -48,6 +48,7 @@ class DpnOneoffCosts extends Plugin
                 'position' => 301,
                 'custom' => false,
                 'translatable' => false,
+                'entity' => 'Shopware\Models\Tax\Tax',
             ]);
 
             $crudService->update('s_articles_attributes', 'oneoff_costs_label', TypeMapping::TYPE_STRING, [
