@@ -11,13 +11,12 @@ namespace DpnOneoffCosts\Subscriber;
  */
 
 use Enlight\Event\SubscriberInterface;
-use Shopware\Bundle\StoreFrontBundle\Struct\ShopContext;
+use Shopware\Bundle\StoreFrontBundle\Struct\ProductContext;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class AddArticleSubscriber implements SubscriberInterface
 {
-
     /**
      * @var ContainerInterface
      */
@@ -48,8 +47,9 @@ class AddArticleSubscriber implements SubscriberInterface
     {
         /** @var Session $session */
         $session = $this->container->get('session');
-        /** @var ShopContext $context */
-        $context = $this->container->get('shopware_storefront.context_service')->getContext();
+
+        /** @var ProductContext $context */
+        $context = $this->container->get('shopware_storefront.context_service')->getProductContext();
         /** @var string $basketId */
         $basketId = $args->get('id');
         /** @var array $product */
@@ -65,15 +65,17 @@ class AddArticleSubscriber implements SubscriberInterface
         $taxId = $product['oneoff_costs_tax'] ?: $product['taxID'];
         $tax = $context->getTaxRule($taxId);
 
-        // Convert gross price if applicable for current customer group
-        $customerGroup = $context->getCurrentCustomerGroup();
-        if ($customerGroup->insertedGrossPrices()) {
-            $oneoffCostsPriceGross = $oneoffCostsPrice;
-            $oneoffCostsPriceNet = $oneoffCostsPrice / (100 + $tax->getTax()) * 100;
-        } else {
+        $oneoffCostsNet = (bool) $product['oneoff_costs_price_net'];
+
+        if (!$oneoffCostsNet) {
+            $oneoffCostsPrice = $oneoffCostsPrice / ($tax->getTax() + 100) * 100;
+        }
+
+        $oneoffCostsPriceNet = $oneoffCostsPriceGross = $oneoffCostsPrice;
+
+        if ($context->getCurrentCustomerGroup()->insertedGrossPrices()) {
             $priceCalculator = $this->container->get('shopware_storefront.price_calculator');
             $oneoffCostsPriceGross = $priceCalculator->calculatePrice($oneoffCostsPrice, $tax, $context);
-            $oneoffCostsPriceNet = $oneoffCostsPrice;
         }
 
         $params = [
@@ -111,5 +113,4 @@ class AddArticleSubscriber implements SubscriberInterface
         $db = $this->container->get('db');
         $db->insert('s_order_basket', $params);
     }
-
 }

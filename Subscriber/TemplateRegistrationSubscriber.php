@@ -11,20 +11,31 @@ namespace DpnOneoffCosts\Subscriber;
  */
 
 use Enlight\Event\SubscriberInterface;
+use Shopware\Bundle\StoreFrontBundle\Service\ContextServiceInterface;
+use Shopware\Bundle\StoreFrontBundle\Service\PriceCalculatorInterface;
+use Shopware\Bundle\StoreFrontBundle\Struct\ProductContextInterface;
 
 class TemplateRegistrationSubscriber implements SubscriberInterface
 {
+    /**
+     * @var ContextServiceInterface
+     */
+    private $contextService;
+
+    /**
+     * @var PriceCalculatorInterface
+     */
+    private $priceCalculator;
 
     /**
      * @var string
      */
     protected $pluginDirectory;
 
-    /**
-     * @param $pluginDirectory
-     */
-    public function __construct($pluginDirectory)
+    public function __construct(ContextServiceInterface $contextService, PriceCalculatorInterface $priceCalculator, $pluginDirectory)
     {
+        $this->contextService = $contextService;
+        $this->priceCalculator = $priceCalculator;
         $this->pluginDirectory = $pluginDirectory;
     }
 
@@ -43,10 +54,31 @@ class TemplateRegistrationSubscriber implements SubscriberInterface
      */
     public function onFrontendDetailPostDispatch(\Enlight_Event_EventArgs $args)
     {
-        /** @var \Shopware_Controllers_Backend_Article $controller */
+        /** @var \Shopware_Controllers_Frontend_Detail $controller */
         $controller = $args->getSubject();
-        $controller->View()->addTemplateDir($this->pluginDirectory . '/Resources/views/');
-        $controller->View()->extendsTemplate('frontend/dpn_oneoff_costs/detail/data.tpl');
-    }
+        /** @var \Enlight_View_Default $view */
+        $view = $controller->View();
 
+        $view->addTemplateDir($this->pluginDirectory . '/Resources/views/');
+        $view->extendsTemplate('frontend/dpn_oneoff_costs/detail/data.tpl');
+
+        $article = $view->getAssign('sArticle');
+        $oneoffCostsPrice = $article['oneoff_costs_price'];
+        $oneoffCostsNet = (bool) $article['oneoff_costs_price_net'];
+        $oneoffCostsTaxId = $article['oneoff_costs_tax'] ?: $article['taxID'];
+
+        /** @var ProductContextInterface $context */
+        $context = $this->contextService->getProductContext();
+        $tax = $context->getTaxRule($oneoffCostsTaxId);
+
+        if (!$oneoffCostsNet) {
+            $oneoffCostsPrice = $oneoffCostsPrice / ($tax->getTax() + 100) * 100;
+        }
+
+        if ($context->getCurrentCustomerGroup()->insertedGrossPrices()) {
+            $oneoffCostsPrice = $this->priceCalculator->calculatePrice($oneoffCostsPrice, $tax, $context);
+        }
+
+        $view->assign('oneoffCostsPrice', $oneoffCostsPrice);
+    }
 }
