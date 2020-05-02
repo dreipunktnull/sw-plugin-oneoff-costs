@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>One-off costs</label>
     <label lang="de">Einmalkosten</label>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <copyright>(c) 3.0</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, 3.0</author>
@@ -19,5 +19,9 @@
     <changelog version="1.1.0">
         <changes>Make existing vat value selectable</changes>
         <changes lang="de">Auswahl eines bestehenden MwSt. Satzes</changes>
+    </changelog>
+    <changelog version="1.2.0">
+        <changes>Gross/net treatment of one-off cost</changes>
+        <changes lang="de">Brutto/netto Berücksichtigung des Einmalpreises</changes>
     </changelog>
 </plugin>

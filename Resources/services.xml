@@ -5,6 +5,12 @@
 
     <services>
         <service id="dpn_oneoff_costs.subscriber.template_registration" class="DpnOneoffCosts\Subscriber\TemplateRegistrationSubscriber">
+            <argument type="service" id="shopware_storefront.context_service"/>
+            <argument type="service" id="shopware_storefront.price_calculator"/>
+            <argument>%dpn_oneoff_costs.plugin_dir%</argument>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+        <service id="dpn_oneoff_costs.subscriber.extend_article" class="DpnOneoffCosts\Subscriber\ExtendArticleSubscriber">
             <argument>%dpn_oneoff_costs.plugin_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>

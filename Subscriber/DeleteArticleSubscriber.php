@@ -15,7 +15,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DeleteArticleSubscriber implements SubscriberInterface
 {
-
     /**
      * @var ContainerInterface
      */
@@ -55,5 +54,4 @@ class DeleteArticleSubscriber implements SubscriberInterface
             ]
         );
     }
-
 }

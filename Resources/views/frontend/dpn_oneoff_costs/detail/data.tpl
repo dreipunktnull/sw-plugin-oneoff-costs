@@ -4,7 +4,7 @@
 
     {block name="dpn_oneoff_costs_info"}
         {if $sArticle.oneoff_costs_price}
-            <p class="product--tax">{$sArticle.oneoff_costs_label}: {$sArticle.oneoff_costs_price|currency}</p>
+            <p class="product--tax">{$sArticle.oneoff_costs_label}: {$oneoffCostsPrice|currency}</p>
         {/if}
     {/block}
 
