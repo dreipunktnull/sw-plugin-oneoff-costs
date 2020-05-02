@@ -88,7 +88,7 @@ class DpnOneoffCosts extends Plugin
             $crudService->update('s_articles_attributes', 'oneoff_costs_price', TypeMapping::TYPE_FLOAT, [
                 'label' => 'Price',
                 'helpText' => 'One-off costs to be added to this article independent from amount',
-                'displayInBackend' => true,
+                'displayInBackend' => false,
                 'position' => 300,
                 'custom' => false,
                 'translatable' => false,
@@ -96,9 +96,7 @@ class DpnOneoffCosts extends Plugin
             ]);
 
             $crudService->update('s_articles_attributes', 'oneoff_costs_price_net', TypeMapping::TYPE_BOOLEAN, [
-                'label' => 'Net',
-                'helpText' => 'Oneoff cost price net',
-                'displayInBackend' => true,
+                'displayInBackend' => false,
                 'allowBlank' => false,
                 'position' => 301,
                 'custom' => false,
@@ -107,9 +105,7 @@ class DpnOneoffCosts extends Plugin
             ]);
 
             $crudService->update('s_articles_attributes', 'oneoff_costs_tax', TypeMapping::TYPE_SINGLE_SELECTION, [
-                'label' => 'Tax',
-                'helpText' => 'Tax to be applied to one-off costs',
-                'displayInBackend' => true,
+                'displayInBackend' => false,
                 'allowBlank' => true,
                 'position' => 302,
                 'custom' => false,
@@ -118,18 +114,14 @@ class DpnOneoffCosts extends Plugin
             ]);
 
             $crudService->update('s_articles_attributes', 'oneoff_costs_label', TypeMapping::TYPE_STRING, [
-                'label' => 'Label',
-                'helpText' => 'One-off costs label shown in basket',
-                'displayInBackend' => true,
+                'displayInBackend' => false,
                 'position' => 303,
                 'custom' => false,
                 'translatable' => true,
             ]);
 
             $crudService->update('s_articles_attributes', 'oneoff_costs_ordernum', TypeMapping::TYPE_STRING, [
-                'label' => 'Order number',
-                'helpText' => 'One-off costs order number',
-                'displayInBackend' => true,
+                'displayInBackend' => false,
                 'position' => 304,
                 'custom' => false,
                 'translatable' => false,
