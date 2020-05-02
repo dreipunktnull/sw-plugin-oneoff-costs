@@ -70,14 +70,13 @@ class TemplateRegistrationSubscriber implements SubscriberInterface
         /** @var ProductContextInterface $context */
         $context = $this->contextService->getProductContext();
         $tax = $context->getTaxRule($oneoffCostsTaxId);
+        $taxRate = null !== $tax ? $tax->getTax() : $article['tax'];
 
         if (!$oneoffCostsNet) {
-            $oneoffCostsPrice = $oneoffCostsPrice / ($tax->getTax() + 100) * 100;
+            $oneoffCostsPrice = $oneoffCostsPrice / ($taxRate + 100) * 100;
         }
 
-        if ($context->getCurrentCustomerGroup()->insertedGrossPrices()) {
-            $oneoffCostsPrice = $this->priceCalculator->calculatePrice($oneoffCostsPrice, $tax, $context);
-        }
+        $oneoffCostsPrice = $this->priceCalculator->calculatePrice($oneoffCostsPrice, $tax, $context);
 
         $view->assign('oneoffCostsPrice', $oneoffCostsPrice);
     }

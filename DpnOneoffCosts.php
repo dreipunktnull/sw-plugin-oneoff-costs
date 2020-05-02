@@ -10,7 +10,6 @@ namespace DpnOneoffCosts;
  * All rights reserved
  */
 
-use Doctrine\Common\Cache\Cache;
 use Shopware\Bundle\AttributeBundle\Service\CrudService;
 use Shopware\Bundle\AttributeBundle\Service\TypeMapping;
 use Shopware\Components\Plugin;
@@ -63,7 +62,7 @@ class DpnOneoffCosts extends Plugin
             $crudService->delete('s_articles_attributes', 'oneoff_costs_tax');
             $crudService->delete('s_articles_attributes', 'oneoff_costs_ordernum');
 
-            $this->updateMetadataCacheAndModels();
+            $this->container->get('models')->generateAttributeModels(['s_articles_attributes']);
         }
         catch (\Exception $e) {
         }
@@ -86,8 +85,6 @@ class DpnOneoffCosts extends Plugin
 
         try {
             $crudService->update('s_articles_attributes', 'oneoff_costs_price', TypeMapping::TYPE_FLOAT, [
-                'label' => 'Price',
-                'helpText' => 'One-off costs to be added to this article independent from amount',
                 'displayInBackend' => false,
                 'position' => 300,
                 'custom' => false,
@@ -127,18 +124,10 @@ class DpnOneoffCosts extends Plugin
                 'translatable' => false,
             ]);
 
-            $this->updateMetadataCacheAndModels();
+            $this->container->get('models')->generateAttributeModels(['s_articles_attributes']);
         }
         catch (\Exception $e) {
         }
-    }
-
-    protected function updateMetadataCacheAndModels()
-    {
-        /** @var Cache $metaDataCache */
-        $metaDataCache = Shopware()->Models()->getConfiguration()->getMetadataCacheImpl();
-        $metaDataCache->deleteAll();
-        Shopware()->Models()->generateAttributeModels(['s_articles_attributes']);
     }
 }
 

@@ -21,7 +21,7 @@
         <changes lang="de">Auswahl eines bestehenden MwSt. Satzes</changes>
     </changelog>
     <changelog version="1.2.0">
-        <changes>Gross/net treatment of oneoff price</changes>
+        <changes>Gross/net treatment of one-off cost</changes>
         <changes lang="de">Brutto/netto Berücksichtigung des Einmalpreises</changes>
     </changelog>
 </plugin>
