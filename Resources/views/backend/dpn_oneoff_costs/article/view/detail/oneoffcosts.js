@@ -144,8 +144,8 @@ Ext.define('Shopware.apps.Article.view.detail.OneoffCosts', {
                 me.oneoffCostsLabelField.setValue(response.data['__attribute_oneoff_costs_label']);
                 me.oneoffCostsOrdernumField.setValue(response.data['__attribute_oneoff_costs_ordernum']);
                 me.oneoffCostsPriceField .setValue(response.data['__attribute_oneoff_costs_price']);
-                me.oneoffCostsTaxField.setValue(parseInt(response.data['__attribute_oneoff_costs_tax']));
                 me.oneoffCostsNetField.setValue(response.data['__attribute_oneoff_costs_price_net']);
+                me.oneoffCostsTaxField.setValue(response.data['__attribute_oneoff_costs_tax'] ? parseInt(response.data['__attribute_oneoff_costs_tax']) : null);
             }
         });
     }
