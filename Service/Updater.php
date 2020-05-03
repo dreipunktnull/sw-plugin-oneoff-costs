@@ -53,6 +53,7 @@ class Updater
         $this->createAttributesFor12();
         $this->modelManager->generateAttributeModels(['s_articles_attributes']);
         $this->context->scheduleClearCache(UpdateContext::CACHE_LIST_DEFAULT);
+        $this->context->scheduleMessage('Bitte das Backend neu laden. Please refresh the backed.');
     }
 
     public function createAttributesFor12()
