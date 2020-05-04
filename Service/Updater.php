@@ -2,8 +2,6 @@
 
 namespace DpnOneoffCosts\Service;
 
-namespace DpnOneoffCosts\Service;
-
 use Shopware\Bundle\AttributeBundle\Service\CrudServiceInterface;
 use Shopware\Bundle\AttributeBundle\Service\TypeMapping;
 use Shopware\Components\Model\ModelManager;
@@ -46,6 +44,9 @@ class Updater
         if (version_compare($this->context->getCurrentVersion(), '1.2', '<')) {
             $this->updateTo12();
         }
+        if (version_compare($this->context->getCurrentVersion(), '1.2.1', '<=')) {
+            $this->updateTo122();
+        }
     }
 
     public function updateTo12()
@@ -66,6 +67,52 @@ class Updater
                 'custom' => false,
                 'translatable' => false,
                 'defaultValue' => 0,
+            ]);
+        }
+        catch (\Exception $e) {
+            $this->context->scheduleMessage($e->getMessage());
+        }
+    }
+
+    public function updateTo122()
+    {
+        $this->createAttributesFor122();
+        $this->modelManager->generateAttributeModels(['s_articles_attributes']);
+        $this->context->scheduleClearCache(UpdateContext::CACHE_LIST_DEFAULT);
+        $this->context->scheduleMessage('Bitte das Backend neu laden. Please refresh the backed.');
+    }
+
+    public function createAttributesFor122()
+    {
+        try {
+            $this->crudService->update('s_articles_attributes', 'oneoff_costs_price', TypeMapping::TYPE_FLOAT, [
+                'displayInBackend' => false,
+                'position' => 300,
+                'custom' => false,
+                'translatable' => false,
+            ]);
+
+            $this->crudService->update('s_articles_attributes', 'oneoff_costs_tax', TypeMapping::TYPE_SINGLE_SELECTION, [
+                'displayInBackend' => false,
+                'allowBlank' => true,
+                'position' => 302,
+                'custom' => false,
+                'translatable' => false,
+                'entity' => 'Shopware\Models\Tax\Tax',
+            ]);
+
+            $this->crudService->update('s_articles_attributes', 'oneoff_costs_label', TypeMapping::TYPE_STRING, [
+                'displayInBackend' => false,
+                'position' => 303,
+                'custom' => false,
+                'translatable' => true,
+            ]);
+
+            $this->crudService->update('s_articles_attributes', 'oneoff_costs_ordernum', TypeMapping::TYPE_STRING, [
+                'displayInBackend' => false,
+                'position' => 304,
+                'custom' => false,
+                'translatable' => false,
             ]);
         }
         catch (\Exception $e) {
