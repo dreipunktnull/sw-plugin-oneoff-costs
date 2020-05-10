@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>One-off costs</label>
     <label lang="de">Einmalkosten</label>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <copyright>(c) 3.0</copyright>
     <link>https://dreipunktnull.com</link>
     <author>Björn Fromme, 3.0</author>
@@ -31,5 +31,9 @@
     <changelog version="1.2.2">
         <changes>Fixes an issue in updater</changes>
         <changes lang="de">Behebt ein Problem im Updater</changes>
+    </changelog>
+    <changelog version="1.2.3">
+        <changes>Fixes an issue with variants</changes>
+        <changes lang="de">Behebt ein Problem mit Varianten</changes>
     </changelog>
 </plugin>
